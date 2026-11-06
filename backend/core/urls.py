@@ -1,0 +1,88 @@
+from django.urls import path
+
+from .views import (
+    AccountProvisionView,
+    AccountDetailView,
+    AuditLogView,
+    AllocationCreateView,
+    AllocationListView,
+    AuthMeView,
+    ComplaintDetailView,
+    ComplaintListCreateView,
+    DashboardSummaryView,
+    HostelDetailView,
+    HostelListView,
+    LoginView,
+    LogoutView,
+    ProfileView,
+    RoomDetailView,
+    RoomListView,
+    RoomReassignmentView,
+    RoomVacationView,
+    StaffListView,
+    StaffDetailView,
+    StudentDetailView,
+    StudentListCreateView,
+    health_check,
+    semantic_complaint_search,
+)
+
+
+urlpatterns = [
+    path("students/", StudentListCreateView.as_view(), name="student-list"),
+    path(
+        "students/<int:student_id>/",
+        StudentDetailView.as_view(),
+        name="student-detail",
+    ),
+    path("hostels/", HostelListView.as_view(), name="hostel-list"),
+    path(
+        "hostels/<int:hostel_id>/",
+        HostelDetailView.as_view(),
+        name="hostel-detail",
+    ),
+    path("rooms/", RoomListView.as_view(), name="room-list"),
+    path("rooms/<int:room_id>/", RoomDetailView.as_view(), name="room-detail"),
+    path("staff/", StaffListView.as_view(), name="staff-list"),
+    path("staff/<int:staff_id>/", StaffDetailView.as_view(), name="staff-detail"),
+    path("allocations/", AllocationListView.as_view(), name="allocation-list"),
+    path(
+        "allocations/create/",
+        AllocationCreateView.as_view(),
+        name="allocation-create",
+    ),
+    path(
+        "allocations/vacate/",
+        RoomVacationView.as_view(),
+        name="allocation-vacate",
+    ),
+    path(
+        "allocations/reassign/",
+        RoomReassignmentView.as_view(),
+        name="allocation-reassign",
+    ),
+    path("complaints/", ComplaintListCreateView.as_view(), name="complaint-list"),
+    path(
+        "complaints/semantic-search/",
+        semantic_complaint_search,
+        name="complaint-semantic-search",
+    ),
+    path(
+        "complaints/<int:complaint_id>/",
+        ComplaintDetailView.as_view(),
+        name="complaint-detail",
+    ),
+    path("dashboard/summary/", DashboardSummaryView.as_view(), name="dashboard-summary"),
+    path("accounts/", AccountProvisionView.as_view(), name="account-provision"),
+    path(
+        "accounts/<int:profile_id>/",
+        AccountDetailView.as_view(),
+        name="account-detail",
+    ),
+    path("auth/login/", LoginView.as_view(), name="login"),
+    path("auth/logout/", LogoutView.as_view(), name="logout"),
+    path("auth/me/", AuthMeView.as_view(), name="auth-me"),
+    path("profile/", ProfileView.as_view(), name="profile"),
+    path("audit/", AuditLogView.as_view(), name="audit"),
+    path("health/", health_check, name="health-check"),
+]
